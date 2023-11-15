@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<htm l>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			table{
+				margin: 100px auto;
+			}
+			a{
+				color: black;
+				text-decoration: none;
+			}
+			
+			table tr{
+				background-color: blanchedalmond;
+			}
+			table tr input{
+				width: 15px;
+				height: 15px;
+			}
+			table tr td,table tr th{
+				padding: 20px;
+			}
+			.num{
+				width: 50px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+			}
+			.jian,.jia{
+				width: 30px;
+				height: 30px;
+			}
+			table tr th img{
+			    width: 145px;
+			    float: left;
+				 margin-right: 10px;
+			}
+		</style>
+		<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<table border=""1 cellspacing="0" cellpadding="0" >
+			<tr>
+				<td>
+					全选
+					<input type="checkbox" class="checkAll"/>
+				</td>
+				<th>商品</th>
+				<th>价钱</th>
+				<th>数量</th>
+				<th>小计</th>
+				<th>操作</th>
+			</tr>
+			<tr class="shop_cart">
+				<td>
+					<input type="checkbox" class="checkone"/>
+				</td>
+				<th>
+				    	<img src="./1.png" alt="">
+				    	拼装曹仁吕布关羽牛魔王合金手办模型
+				</th>
+				<th class="price">￥111.80</th>
+				<th>
+					
+						<button class="jian">-</button>
+						<input type="text" value="1" class="num"/>
+						<button class="jia">+</button>
+					
+				</th>
+				<th class="shop_price">￥111.80</th>
+				<th>
+				    	<a href="javascript:;" class='del'>删除</a>
+				</th>
+			</tr>
+			<tr class="shop_cart">
+				<td>
+					<input type="checkbox" class="checkone"/>
+				</td>
+				<th>
+				    	<img src="./1.png" alt="">
+				    	拼装曹仁吕布关羽牛魔王合金手办模型
+				</th>
+				<th class="price">￥111.80</th>
+				<th>
+						<button class="jian">-</button>
+						<input type="text" value="1" class="num"/>
+						<button class="jia">+</button>
+				</th>
+				<th class="shop_price">￥111.80</th>
+				<th>
+				    	<a href="javascript:;" class='del'>删除</a>
+				</th>
+			</tr>
+			<tr class="shop_cart">
+				<td>
+					<input type="checkbox" class="checkone"/>
+				</td>
+				<th>
+				    	<img src="./1.png" alt="">
+				    	拼装曹仁吕布关羽牛魔王合金手办模型
+				</th>
+				<th class="price">￥111.80</th>
+				<th>
+						<button class="jian">-</button>
+						<input type="text" value="1" class="num"/>
+						<button class="jia">+</button>
+				</th>
+				<th class="shop_price">￥111.80</th>
+				<th>
+				    	<a href="javascript:;" class='del'>删除</a>
+				</th>
+			</tr>
+			<tr class="shop_cart">
+				<td>
+					<input type="checkbox" class="checkone"/>
+				</td>
+				<th>
+				    	<img src="./1.png" alt="">
+				    	拼装曹仁吕布关羽牛魔王合金手办模型
+				</th>
+				<th class="price">￥111.80</th>
+				<th>
+						<button class="jian">-</button>
+						<input type="text" value="1" class="num"/>
+						<button class="jia">+</button>
+				</th>
+				<th class="shop_price">￥111.80</th>
+				<th>
+				    	<a href="javascript:;" class='del'>删除</a>
+				</th>
+			</tr>
+			<tr>
+				<td>
+					全选
+					<input type="checkbox" class="checkAll"/>
+				</td>
+				<th>
+				    	<a href="javascript:;" class="check_none">删除选中的商品</a>
+				</th>
+				<th>
+				    	<a href="javascript:;" class="shop_empty">清空购物车</a>
+				</th>
+				<th class="shop_sum">
+				    已经选
+				    <em>0</em>
+				    件商品
+				</th>
+				<th class="price_sum">
+				    总价:<em>￥0.00</em>
+				</th>
+				<th>
+				    去结算
+				</th>
+			</tr>
+		</table>
+	</body>
+	<script>
+		
+	$(function(){
+			// 选择
+			$('.checkAll').change(function(){
+				$('.checkone,.checkAll').prop('checked',this.checked);
+				getsum();
+				
+			});
+			$('.checkone').change(function(){
+				if($(".checkone:checked").length == $('.checkone').length){
+					$('.checkAll').prop('checked',true);
+				}else{
+					$('.checkAll').prop('checked',false);
+				}
+				getsum();
+			})
+			// 每个商品数量
+		$('.jian').click(function(){
+			var i = $(this).parent().children('input').val();
+			if(i > 1){
+				i--;
+				$(this).parent().children('input').val(i);
+				var a = ($(this).parent().siblings('.price').text()).substr(1);
+				$(this).parent().next().text('￥' + (a - i + 1).toFixed(1));
+				getsum();
+			}
+				
+		});
+		$('.jia').click(function(){
+			var i = $(this).parent().children('input').val();
+			i++;
+			$(this).parent().children('input').val(i);
+			//小计
+			console.log(($(this).parent().siblings('.price').text()).substr(1));
+			var a = ($(this).parent().siblings('.price').text()).substr(1);
+			$(this).parent().next().text('￥' + (i * a).toFixed(1));
+			getsum();
+		});
+			return false;
+		})
+		$('.num').change(function(){
+			
+			var i = $(this).parent().children('input').val();
+			var a = ($(this).parent().siblings('.price').text()).substr(1);
+			$(this).parent().next().text('￥' + ( i *a ).toFixed(1));
+			getsum();
+		})
+		//删除功能
+		$('.del').click(function(){
+		    $(this).parents('tr').remove();
+			getsum();
+		})
+		//删除选中的商品
+		$('.check_none').click(function(){
+			$('.checkone:checked').parents('.shop_cart').remove();
+			$('.checkAll').prop('checked',false)
+			getsum();
+		})
+		//清空购物车
+		$('.shop_empty').click(function(){
+			$('.shop_cart').remove();
+			$('.checkAll').prop('checked',false)
+			getsum();
+		})
+		// 总和
+		function getsum(){
+			
+		}
+		var sum = 0;
+		var num = 0;
+		$('.checkone').each(function(i,ele){
+			if($(ele).prop('checked')==true){
+				sum += parseFloat($(ele).parents('.shop_cart').find('.shop_price').text().substr(1));
+				num += parseInt($(ele).parents('.shop_cart').find('.num').val());
+			}
+		})
+		$('.price_sum em').text('￥' + sum.toFixed(1));
+		$('.shop_sum em').text(num);
+		console.log($(ele))
+	</script>
+</html>
